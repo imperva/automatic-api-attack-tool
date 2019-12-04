@@ -2,7 +2,7 @@
 
 Imperva's customizable API attack tool takes an API specification as an input, and generates and runs attacks that are based on it as an output.
 
-The tool is able to parse an API specification and create fuzzing attack scenarios based on what is defined in the API specification. Each endpoint is injected with cleverly generated values within the boundaries defined by the specification, and outside of it, the appropriate requests are sent and their success or failure are reported in a detailed manner. It is also able to run various security attack vectors, such as illegal resource access, XSS, SQLi and RFI, that are targeted at the existing endpoints, or even at non-existing ones.
+The tool is able to parse an API specification and create fuzzing attack scenarios based on what is defined in the API specification. Each endpoint is injected with cleverly generated values within the boundaries defined by the specification, and outside of it, the appropriate requests are sent and their success or failure are reported in a detailed manner. You may also extend it to run various security attack vectors, such as illegal resource access, XSS, SQLi and RFI, that are targeted at the existing endpoints, or even at non-existing ones.
 **No human intervention is needed. Simply run the tool and get the results.**
 
 
@@ -164,7 +164,9 @@ We are working on migrating our other scenarios to the open-source tool, for the
 The tool is written in a way that makes it easy to extend its fuzzing and request generation functionality to meet your specific needs. Feel free to suggest any additions that others may benefit from by creating a pull request.
 
 ##Getting Help
+
 If you have questions about the library, be sure to check out the source code documentation. If you still have questions, reach out to me via email at `boris.serebro(at)imperva(dot)com`.
 
 ##Reporting Bugs
+
 Please open a Git Issue and include as much information as possible. If possible, provide a sample code that illustrates the problem you're encountering. If you're experiencing a bug on a specific repository only, provide a link to it, if possible. Do not open a Git Issue for help, only for bug reports.
