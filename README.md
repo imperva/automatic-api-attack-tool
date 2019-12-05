@@ -24,7 +24,7 @@ The tool can be easily extended to adapt to meet the various needs, such as for 
 
 ## Usage
 
-#####Required parameters:
+##### Required parameters:
   -f, --specFile=*specFilePath*
    >The API specification file (swagger 2.0) to run on. JSON/YAML format. For better results, make sure responses are well defined for each endpoint.
 
@@ -34,7 +34,7 @@ The tool can be easily extended to adapt to meet the various needs, such as for 
   -s, --hostScheme=*hostScheme*
    >Connection to host will be made using this scheme; e.g: https or http
 
-#####Optional parameters:
+##### Optional parameters:
   -p, --hostPort=*hostPort*
    >The port the host is listening on for API calls, default is: 443
   
@@ -52,7 +52,7 @@ The tool can be easily extended to adapt to meet the various needs, such as for 
 
  
 
-###Typical usage scenarios:
+### Typical usage scenarios:
 - You'd like to check whether your API is protected by an API Security solution.
   
   Example run: `api-attack.sh -f swaggerPetStore.json -n myapisite.com -s http -rcn=403`
@@ -81,27 +81,27 @@ The tool can be easily extended to adapt to meet the various needs, such as for 
     
   Example run: `api-attack.sh -f publiclyAvailableSwaggerOfAPI.yaml -n api.corporate.com -s https`
 
-###Conditions for failing checks
+### Conditions for failing checks
 - The tool verifies the generated request response code matches the declared response codes in the swagger.
 Yet, 
 - Positive checks: if it's a clear error (code is 5xx), we will still fail the check, even if this response code is not defined in the spec, but not if you supplied an override.
 - Negative checks: if the response is not a legitimate error (1xx, 2xx, 5xx), we fail the check unless you supplied an override. If the legitimate error code is not in the spec, the check will fail as well.
 - You may use the 'default' definition in the response section of the swagger, but this is not recommended. Always define your legitimate answers precisely.
 
-###Conditions for failing checks
+### Conditions for failing checks
 - The tool verifies the generated request response code matches the declared response codes in the swagger.
 Yet, 
 - Positive checks: if it's a clear error (code is 5xx), we will still fail the check, even if this response code is not defined in the spec, but not if you supplied an override.
 - Negative checks: if the response is not a legitimate error (1xx, 2xx, 5xx), we fail the check. Unless you supplied an override. If the legitimate error code is not in the spec, the check will fail as well.
 - You may use the 'default' definition in the response section of the swagger, but this is not recommended. Always define your legitimate answers precisely.
 
-##Expected outputs:
+## Expected outputs:
 - The tool uses the testng reporting framework, so any plugin that handles testng runs can be used here. Only note that the results are written under the build/testng-results folder. This can be changed, of course.
 - The tool generates requests according to its check suites, and each request checks something specific. So each check will present all the relevant details in the command line output, together with what is being checked, what the response is, and whether or not it was as expected.
 - Any bad requests will be stored in the `bad_requests` folder, so that you could analyze it later (e.g. if this is running on CI/CD server, for instance, and you don't have immediate access to the machine)
 - In the end, you will be provided with a summary
 
-######Example of a negative check that failed:
+###### Example of a negative check that failed:
 ```
 ***** Testing API Endpoint *****
 ***** Test ID: 1575128763286-74212
@@ -116,7 +116,7 @@ Response (non parsed):
 ```
 Why did the check fail? The request got 200, even though didn't contain a legal URL
 
-######Another example:
+###### Another example:
 ```
 ***** Testing API Endpoint *****
 ***** Test ID: 1575128763286-25078
@@ -132,7 +132,7 @@ Response (non parsed):
 ```
 The server expected to get an integer, but accepted a double value. This might be a good spot to try and exploit some buffer overflow in the server.
 
-######Example of a successful check:
+###### Example of a successful check:
 ```
 ***** Testing API Endpoint *****
 ***** Test ID: 1575128763137-43035
@@ -163,10 +163,10 @@ We are working on migrating our other scenarios to the open-source tool, for the
 ## Extensibility 
 The tool is written in a way that makes it easy to extend its fuzzing and request generation functionality to meet your specific needs. Feel free to suggest any additions that others may benefit from by creating a pull request.
 
-##Getting Help
+## Getting Help
 
 If you have questions about the library, be sure to check out the source code documentation. If you still have questions, reach out to me via email at `boris.serebro(at)imperva(dot)com`.
 
-##Reporting Bugs
+## Reporting Bugs
 
 Please open a Git Issue and include as much information as possible. If possible, provide a sample code that illustrates the problem you're encountering. If you're experiencing a bug on a specific repository only, provide a link to it, if possible. Do not open a Git Issue for help, only for bug reports.
