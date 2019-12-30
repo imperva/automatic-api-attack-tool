@@ -13,13 +13,13 @@ The tool can be easily extended to adapt to meet the various needs, such as for 
 - Gradle
 
 ## Running
-- Check out the code from GitHub and run 'gradle build'
+- Check out the code from GitHub and run `./gradlew build` or `gradlew.bat build` on Windows
 - You may find the executable jar under the build/libs folder
 - Run 'java -jar imperva-api-attack-tool.jar' to see the help menu
 
 ## Making a Linux executable
-- Copy the runnable.sh file from the src/main/resources folder, to the same directory with the jar file.
-- Now run: 'cat runnable.sh imperva-api-attack-tool.jar > api-attack.sh && chmod +x api-attack.sh'
+- Copy the `runnable.sh` file from the `src/main/resources` folder, to the same directory with the jar file.
+- Now run: `cat runnable.sh imperva-api-attack-tool.jar > api-attack.sh && chmod +x api-attack.sh`
 - You may use the api-attack.sh file as a regular executable
 
 ## Usage
