@@ -1,0 +1,44 @@
+# Creates a Github release and uploads it
+#
+# Prerequisite: create a secret called GITHUB_API_KEY with an Github token with public_repo scope
+
+name: Release pipeline
+
+on:
+  push:
+    tags:
+      - 'v*' # Triggers only on tags like v1.0 (versions)
+
+jobs:
+  build:
+    name: Create a new release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@master
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::$(echo $GITHUB_REF | cut -d / -f 3)
+      - name: Build project
+        run: |
+          ./gradlew clean build
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_API_KEY }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Upload executable jar
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_API_KEY }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/libs/imperva-api-attack-tool.jar
+          asset_name: imperva-api-attack-tool-${{ steps.get_version.outputs.VERSION }}.jar
+          asset_content_type: application/zip
