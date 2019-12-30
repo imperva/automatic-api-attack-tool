@@ -1,0 +1,11 @@
+name: Build pipeline
+
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Build
+        run: ./gradlew clean build
