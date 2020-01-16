@@ -1,0 +1,854 @@
+When I run the following cmd against https://petstore.swagger.io/ with swaggerPetStore.json in my build/libs folder:
+
+./api-attack.sh -f swaggerPetStore.json -n petstore.swagger.io -s http -ph <myproxy> -pp=<myproxyport>
+
+I get this output:
+
+04:39:56.165 [main] INFO  c.i.apiattacktool.cli.ApiAttackTool - Running with this configuration:
+API Spec file path: swaggerPetStore.json
+Host: (http) petstore.swagger.io : 443
+Proxy Host: 
+
+************ Imperva API Attack Tool ************
+************ *********************** ************
+************ Luke, I am your Fuzzer  ************
+************ *********************** ************
+***** Testing API Endpoint *****
+***** Test ID: 1579167596962-76762
+Testing: /v2/pet/{petId}
+--> Url: /v2/pet/2397673855655292407
+--> Method: GET
+--> Headers: [api_key: 2�]
+
+✅ Request was: GET /v2/pet/2397673855655292407 [api_key: 2�, Host: petstore.swagger.io, Accept: application/json], Response status code: 404 
+Response (non parsed):
+{"code":1,"type":"error","message":"Pet not found"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167596962-20957
+Testing: /v2/pet/{petId}
+--> Url: /v2/pet/-4517760090783298342
+--> Method: POST
+--> Headers: []
+--> Body: --UwjtYDhZf9eaCSTw5AZi_ul4EeJ9Wp4rR
+Content-Disposition: form-data; name="name"
+Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+?&a
+--UwjtYDhZf9eaCSTw5AZi_ul4EeJ9Wp4rR
+Content-Disposition: form-data; name="status"
+Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+??????
+--UwjtYDhZf9eaCSTw5AZi_ul4EeJ9Wp4rR--
+
+----------End of Body----------
+
+❌ Request was: POST /v2/pet/-4517760090783298342 [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 (UNEXPECTED)
+Valid responses: (scenario override, not: 5xx), 405
+Response (non parsed):
+{"code":415,"type":"unknown"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167596962-26875
+Testing: /v2/pet/{petId}
+--> Url: /v2/pet/-1431002144753689469
+--> Method: DELETE
+--> Headers: [api_key: ]
+
+✅ Request was: DELETE /v2/pet/-1431002144753689469 [api_key: , Host: petstore.swagger.io, Accept: application/json], Response status code: 404 
+Response (parsed):
+empty
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167596962-23507
+Testing: /v2/pet/{petId}/uploadImage
+--> Url: /v2/pet/-1251018360101925559/uploadImage
+--> Method: POST
+--> Headers: []
+--> Body: --Gt7dc_c6Mjp1peSh0yA0I9ug_-36H-KV
+Content-Disposition: form-data; name="file"
+Content-Type: multipart/form-data; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+untyped
+--Gt7dc_c6Mjp1peSh0yA0I9ug_-36H-KV
+Content-Disposition: form-data; name="additionalMetadata"
+Content-Type: multipart/form-data; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+??
+--Gt7dc_c6Mjp1peSh0yA0I9ug_-36H-KV--
+
+----------End of Body----------
+
+✅ Request was: POST /v2/pet/-1251018360101925559/uploadImage [Host: petstore.swagger.io, Accept: application/json], Response status code: 200 
+Response (non parsed):
+{"code":200,"type":"unknown","message":"additionalMetadata: ??\nFile uploaded to ./null, 7 bytes"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167596962-79362
+Testing: /v2/pet
+--> Url: /v2/pet
+--> Method: PUT
+--> Headers: []
+--> Body: {"name":"��m@�","photoUrls":[{"photoUrls":"��\u0016w"},{"photoUrls":"D\u0000T�\u001ci"},{"photoUrls":"�\u0000b~"},{"photoUrls":"��?B"}],"id":5208808773074261359,"category":{"name":"S","id":527660824648142411},"tags":[{"name":"�.~]","id":3010943260075291886},{"name":"e","id":3827832950032633571}],"status":"pending"}
+----------End of Body----------
+
+❌ Request was: PUT /v2/pet [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 (UNEXPECTED)
+Valid responses: (scenario override, not: 5xx), 400,404,405
+Response (non parsed):
+{"code":415,"type":"unknown"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167596962-54138
+Testing: /v2/pet
+--> Url: /v2/pet
+--> Method: POST
+--> Headers: []
+--> Body: {"name":"","photoUrls":[{"photoUrls":"�"},{"photoUrls":"B�"},{"photoUrls":"\b"},{"photoUrls":"�1\\"},{"photoUrls":"��"},{"photoUrls":"Du�9�"}],"id":-8226161878814919649,"category":{"name":"�gq�(RI�","id":7995739665249878494},"tags":[{"name":"���","id":-8471969945400609322},{"name":"","id":-3376617013448655492},{"name":"7\nt_D��","id":-5016596335244119418},{"name":"�","id":-1108311313566858256},{"name":"�","id":89220672529760988},{"name":"\n","id":-489234869905250935},{"name":"\u0003","id":1777997566219763332},{"name":"za","id":-1839547322705385878},{"name":"�","id":2945191046237351948}],"status":"pending"}
+----------End of Body----------
+
+❌ Request was: POST /v2/pet [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 (UNEXPECTED)
+Valid responses: (scenario override, not: 5xx), 405
+Response (non parsed):
+{"code":415,"type":"unknown"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167596962-13865
+Testing: /v2/pet/findByStatus
+--> Url: /v2/pet/findByStatus?status=pending%26sold%26available%26pending%26available%26pending%26pending%26available%26pending
+--> Method: GET
+--> Headers: []
+
+✅ Request was: GET /v2/pet/findByStatus?status=pending%26sold%26available%26pending%26available%26pending%26pending%26available%26pending [Host: petstore.swagger.io, Accept: application/json], Response status code: 200 
+Response (non parsed):
+[]
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167596962-9616
+Testing: /v2/pet/findByTags
+--> Url: /v2/pet/findByTags?tags=P%26F%EF%BF%BD%EF%BF%BD%EF%BF%BD%10%EF%BF%BD%EF%BF%BD%19%EF%BF%BD%26t%EF%BF%BDX%EF%BF%BD%26%EF%BF%BD%EF%BF%BD%EF%BF%BDg%EF%BF%BD
+--> Method: GET
+--> Headers: []
+
+✅ Request was: GET /v2/pet/findByTags?tags=P%26F%EF%BF%BD%EF%BF%BD%EF%BF%BD%10%EF%BF%BD%EF%BF%BD%19%EF%BF%BD%26t%EF%BF%BDX%EF%BF%BD%26%EF%BF%BD%EF%BF%BD%EF%BF%BDg%EF%BF%BD [Host: petstore.swagger.io, Accept: application/json], Response status code: 200 
+Response (non parsed):
+[]
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167596962-69555
+Testing: /v2/store/inventory
+--> Url: /v2/store/inventory
+--> Method: GET
+--> Headers: [api_key: �>�6iR]
+
+✅ Request was: GET /v2/store/inventory [api_key: �>�6iR, Host: petstore.swagger.io, Accept: application/json], Response status code: 200 
+Response (non parsed):
+{"тестировщик":1,"Done":1,"Operated":4,"unavailable":1,"available":4350,"可持续女款":3,"b-ok":2,"sold_1":1,"ckwtcjyk":1,"availiabe":1,"111":2,"Available":4,"avaiable":1,"ee":1,"UniquesStatusForPetTest":1,"Nonavailable":1,"testing":1,"XXXX":1,"dfdf":1,"demented":1,"hhhh":1,"1":6,"present":4,"bcd":1,"string":25592,"99998":1,"WIllBeAvailableSOon":1,"pending":316,"Not-Operated":10,"v.cute":1,"sleeping":3,"pedding":1,"swimming":1,"qazxsw":1,"|ping -c2 -i91 localhost|":2,"Sold":1,"not available":35,"\"pending\"":1,"OK":1,"sold":2146,"$swagger_petstorestatus":4,"b":1,"abc":3,"ddd":1,"avaie":1,"panding":1,"retro":1,"YYYY":1,"fdf":1,"PENDING":2,"tentative":2,"dfff":1,"add Ok":1,"AVAILABLE":3,"qwert":1,"ssss":1,"amet":1,"healthy":1,"InactiveTest":1,"consectetur":1,"Pending":1}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167596962-77084
+Testing: /v2/store/order/{orderId}
+--> Url: /v2/store/order/2
+--> Method: GET
+--> Headers: []
+
+✅ Request was: GET /v2/store/order/2 [Host: petstore.swagger.io, Accept: application/json], Response status code: 404 
+Response (non parsed):
+{"code":1,"type":"error","message":"Order not found"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167596962-7736
+Testing: /v2/store/order/{orderId}
+--> Url: /v2/store/order/5234084372530323296
+--> Method: DELETE
+--> Headers: []
+
+✅ Request was: DELETE /v2/store/order/5234084372530323296 [Host: petstore.swagger.io, Accept: application/json], Response status code: 404 
+Response (non parsed):
+Order not found
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167596962-57973
+Testing: /v2/store/order
+--> Url: /v2/store/order
+--> Method: POST
+--> Headers: []
+--> Body: {"petId":8864054079605136518,"quantity":-643020856,"id":483801544827325309,"shipDate":"�yF�V)�","complete":"false","status":"approved"}
+----------End of Body----------
+
+❌ Request was: POST /v2/store/order [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 (UNEXPECTED)
+Valid responses: (scenario override, not: 5xx), 400,200
+Response (non parsed):
+{"code":415,"type":"unknown","message":"com.sun.jersey.api.MessageException: A message body reader for Java class io.swagger.sample.model.Order, and Java type class io.swagger.sample.model.Order, and MIME media type text/plain; charset=UTF-8 was not found.\nThe registered message body readers compatible with the MIME media type are:\n*/* ->\n  com.sun.jersey.core.impl.provider.entity.FormProvider\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.XMLJAXBElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n  com.sun.jersey.core.impl.provider.entity.DocumentProvider\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$StreamSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$SAXSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$DOMSourceReader\n  com.sun.jersey.json.impl.provider.entity.JSONJAXBElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONArrayProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONObjectProvider$General\n  com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider\n  com.sun.jersey.core.impl.provider.entity.XMLRootElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLListElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLRootObjectProvider$General\n  com.sun.jersey.core.impl.provider.entity.EntityHolderReader\n  com.sun.jersey.json.impl.provider.entity.JSONRootElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONListElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JacksonProviderProxy\ntext/plain; charset=UTF-8 ->\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167596962-75826
+Testing: /v2/user/{username}
+--> Url: /v2/user/d$qfUA&+UeESTPH9T,ar2bC,T+Y_;g&i'7&Z=E@I
+--> Method: GET
+--> Headers: []
+
+❌ Request was: GET /v2/user/d$qfUA&+UeESTPH9T,ar2bC,T+Y_;g&i'7&Z=E@I [Host: petstore.swagger.io, Accept: application/json], Response status code: 500 (UNEXPECTED)
+Valid responses: (scenario override, not: 5xx), 400,404,200
+Response (non parsed):
+{"code":500,"type":"unknown","message":"something bad happened"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167596962-61274
+Testing: /v2/user/{username}
+--> Url: /v2/user/$yD8&t3(YDo5~Kr.EGjQEqpd;xN.VaTPwb=m7XZ*qesXhBxe)=q&PF1Kk10Jd3PWmetH!G@mL32(!w4D!VOe.z@IYuiL4:hK~KAYbwh%64%6Ff
+--> Method: PUT
+--> Headers: []
+--> Body: {"firstName":"","lastName":"zsN�1})","password":"�","userStatus":2055086539,"phone":"@��@�\\R\u001b,","id":-7292312475204224643,"email":"\r�v","username":"�E�"}
+----------End of Body----------
+
+❌ Request was: PUT /v2/user/$yD8&t3(YDo5~Kr.EGjQEqpd;xN.VaTPwb=m7XZ*qesXhBxe)=q&PF1Kk10Jd3PWmetH!G@mL32(!w4D!VOe.z@IYuiL4:hK~KAYbwh%64%6Ff [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 (UNEXPECTED)
+Valid responses: (scenario override, not: 5xx), 400,404
+Response (non parsed):
+{"code":415,"type":"unknown","message":"com.sun.jersey.api.MessageException: A message body reader for Java class io.swagger.sample.model.User, and Java type class io.swagger.sample.model.User, and MIME media type text/plain; charset=UTF-8 was not found.\nThe registered message body readers compatible with the MIME media type are:\n*/* ->\n  com.sun.jersey.core.impl.provider.entity.FormProvider\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.XMLJAXBElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n  com.sun.jersey.core.impl.provider.entity.DocumentProvider\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$StreamSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$SAXSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$DOMSourceReader\n  com.sun.jersey.json.impl.provider.entity.JSONJAXBElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONArrayProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONObjectProvider$General\n  com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider\n  com.sun.jersey.core.impl.provider.entity.XMLRootElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLListElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLRootObjectProvider$General\n  com.sun.jersey.core.impl.provider.entity.EntityHolderReader\n  com.sun.jersey.json.impl.provider.entity.JSONRootElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONListElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JacksonProviderProxy\ntext/plain; charset=UTF-8 ->\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167596962-6323
+Testing: /v2/user/{username}
+--> Url: /v2/user/%dCFDtNe~NR$8Su
+--> Method: DELETE
+--> Headers: []
+
+❌ Request was: DELETE /v2/user/%dCFDtNe~NR$8Su [Host: petstore.swagger.io, Accept: application/json], Response status code: 500 (UNEXPECTED)
+Valid responses: (scenario override, not: 5xx), 400,404
+Response (non parsed):
+{"code":500,"type":"unknown","message":"something bad happened"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167596962-52117
+Testing: /v2/user/login
+--> Url: /v2/user/login?password=%EF%BF%BD&username=%22%EF%BF%BD
+--> Method: GET
+--> Headers: []
+
+✅ Request was: GET /v2/user/login?password=%EF%BF%BD&username=%22%EF%BF%BD [Host: petstore.swagger.io, Accept: application/json], Response status code: 200 
+Response (non parsed):
+logged in user session:1579167598390
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167596962-42099
+Testing: /v2/user/logout
+--> Url: /v2/user/logout
+--> Method: GET
+--> Headers: []
+
+✅ Request was: GET /v2/user/logout [Host: petstore.swagger.io, Accept: application/json], Response status code: 200 
+Response (parsed):
+empty
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167596962-16908
+Testing: /v2/user
+--> Url: /v2/user
+--> Method: POST
+--> Headers: []
+--> Body: {"firstName":"|�","lastName":"��","password":"�y","userStatus":667426556,"phone":".","id":-5161692815250412045,"email":"3��}\u0017�W�Gh\t\f","username":"Ǜ�\\"}
+----------End of Body----------
+
+✅ Request was: POST /v2/user [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 
+Response (non parsed):
+{"code":415,"type":"unknown","message":"com.sun.jersey.api.MessageException: A message body reader for Java class io.swagger.sample.model.User, and Java type class io.swagger.sample.model.User, and MIME media type text/plain; charset=UTF-8 was not found.\nThe registered message body readers compatible with the MIME media type are:\n*/* ->\n  com.sun.jersey.core.impl.provider.entity.FormProvider\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.XMLJAXBElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n  com.sun.jersey.core.impl.provider.entity.DocumentProvider\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$StreamSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$SAXSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$DOMSourceReader\n  com.sun.jersey.json.impl.provider.entity.JSONJAXBElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONArrayProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONObjectProvider$General\n  com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider\n  com.sun.jersey.core.impl.provider.entity.XMLRootElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLListElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLRootObjectProvider$General\n  com.sun.jersey.core.impl.provider.entity.EntityHolderReader\n  com.sun.jersey.json.impl.provider.entity.JSONRootElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONListElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JacksonProviderProxy\ntext/plain; charset=UTF-8 ->\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167596962-78907
+Testing: /v2/user/createWithArray
+--> Url: /v2/user/createWithArray
+--> Method: POST
+--> Headers: []
+--> Body: empty (Entity may not be null)
+
+✅ Request was: POST /v2/user/createWithArray [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 
+Response (non parsed):
+{"code":415,"type":"unknown","message":"com.sun.jersey.api.MessageException: A message body reader for Java class [Lio.swagger.sample.model.User;, and Java type class [Lio.swagger.sample.model.User;, and MIME media type application/octet-stream was not found.\nThe registered message body readers compatible with the MIME media type are:\n*/* ->\n  com.sun.jersey.core.impl.provider.entity.FormProvider\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.XMLJAXBElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n  com.sun.jersey.core.impl.provider.entity.DocumentProvider\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$StreamSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$SAXSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$DOMSourceReader\n  com.sun.jersey.json.impl.provider.entity.JSONJAXBElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONArrayProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONObjectProvider$General\n  com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider\n  com.sun.jersey.core.impl.provider.entity.XMLRootElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLListElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLRootObjectProvider$General\n  com.sun.jersey.core.impl.provider.entity.EntityHolderReader\n  com.sun.jersey.json.impl.provider.entity.JSONRootElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONListElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JacksonProviderProxy\napplication/octet-stream ->\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.RenderedImageProvider\n"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167596962-10318
+Testing: /v2/user/createWithList
+--> Url: /v2/user/createWithList
+--> Method: POST
+--> Headers: []
+--> Body: empty (Entity may not be null)
+
+✅ Request was: POST /v2/user/createWithList [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 
+Response (non parsed):
+{"code":415,"type":"unknown","message":"com.sun.jersey.api.MessageException: A message body reader for Java class java.util.List, and Java type java.util.List<io.swagger.sample.model.User>, and MIME media type application/octet-stream was not found.\nThe registered message body readers compatible with the MIME media type are:\n*/* ->\n  com.sun.jersey.core.impl.provider.entity.FormProvider\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.XMLJAXBElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n  com.sun.jersey.core.impl.provider.entity.DocumentProvider\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$StreamSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$SAXSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$DOMSourceReader\n  com.sun.jersey.json.impl.provider.entity.JSONJAXBElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONArrayProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONObjectProvider$General\n  com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider\n  com.sun.jersey.core.impl.provider.entity.XMLRootElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLListElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLRootObjectProvider$General\n  com.sun.jersey.core.impl.provider.entity.EntityHolderReader\n  com.sun.jersey.json.impl.provider.entity.JSONRootElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONListElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JacksonProviderProxy\napplication/octet-stream ->\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.RenderedImageProvider\n"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167598750-42342
+Testing: /v2/pet/{petId}
+--> Url: /v2/pet/469364917495291557
+--> Method: GET
+--> Headers: [api_key: ]
+
+✅ Request was: GET /v2/pet/469364917495291557 [api_key: , Host: petstore.swagger.io, Accept: application/json], Response status code: 404 
+Response (non parsed):
+{"code":1,"type":"error","message":"Pet not found"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167598750-4813
+Testing: /v2/pet/{petId}
+--> Url: /v2/pet/6620250016036322570
+--> Method: POST
+--> Headers: []
+--> Body: empty (Entity may not be null)
+
+❌ Request was: POST /v2/pet/6620250016036322570 [Host: petstore.swagger.io, Accept: application/json], Response status code: 404 (UNEXPECTED)
+Valid responses: (scenario override, not: 5xx), 405
+Response (non parsed):
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Error 404 Not Found</title>
+</head>
+<body><h2>HTTP ERROR 404</h2>
+<p>Problem accessing /v2/pet/6620250016036322570. Reason:
+<pre>    Not Found</pre></p><hr><i><small>Powered by Jetty://</small></i><hr/>
+
+</body>
+</html>
+
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167598750-40975
+Testing: /v2/pet/{petId}
+--> Url: /v2/pet/8276567315709795224
+--> Method: DELETE
+--> Headers: []
+
+✅ Request was: DELETE /v2/pet/8276567315709795224 [Host: petstore.swagger.io, Accept: application/json], Response status code: 404 
+Response (parsed):
+empty
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167598750-81726
+Testing: /v2/pet/{petId}/uploadImage
+--> Url: /v2/pet/-654834927559790595/uploadImage
+--> Method: POST
+--> Headers: []
+--> Body: empty (Entity may not be null)
+
+❌ Request was: POST /v2/pet/-654834927559790595/uploadImage [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 (UNEXPECTED)
+Valid responses: (scenario override, not: 5xx), 200
+Response (non parsed):
+{"code":415,"type":"unknown","message":"com.sun.jersey.api.MessageException: A message body reader for Java class com.sun.jersey.multipart.FormDataMultiPart, and Java type class com.sun.jersey.multipart.FormDataMultiPart, and MIME media type application/octet-stream was not found.\nThe registered message body readers compatible with the MIME media type are:\n*/* ->\n  com.sun.jersey.core.impl.provider.entity.FormProvider\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.XMLJAXBElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n  com.sun.jersey.core.impl.provider.entity.DocumentProvider\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$StreamSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$SAXSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$DOMSourceReader\n  com.sun.jersey.json.impl.provider.entity.JSONJAXBElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONArrayProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONObjectProvider$General\n  com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider\n  com.sun.jersey.core.impl.provider.entity.XMLRootElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLListElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLRootObjectProvider$General\n  com.sun.jersey.core.impl.provider.entity.EntityHolderReader\n  com.sun.jersey.json.impl.provider.entity.JSONRootElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONListElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JacksonProviderProxy\napplication/octet-stream ->\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.RenderedImageProvider\n"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167598750-25342
+Testing: /v2/pet
+--> Url: /v2/pet
+--> Method: PUT
+--> Headers: []
+--> Body: {"name":"n/�;","photoUrls":[{"photoUrls":""},{"photoUrls":""},{"photoUrls":"h�\u0003]��"},{"photoUrls":""},{"photoUrls":"\u001d��"},{"photoUrls":"gQ"},{"photoUrls":"ә��"}]}
+----------End of Body----------
+
+❌ Request was: PUT /v2/pet [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 (UNEXPECTED)
+Valid responses: (scenario override, not: 5xx), 400,404,405
+Response (non parsed):
+{"code":415,"type":"unknown"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167598750-25951
+Testing: /v2/pet
+--> Url: /v2/pet
+--> Method: POST
+--> Headers: []
+--> Body: {"name":"","photoUrls":[{"photoUrls":""},{"photoUrls":"@B�Z���9@"},{"photoUrls":""},{"photoUrls":""},{"photoUrls":"�"},{"photoUrls":"8�\u0018�"},{"photoUrls":"e�"},{"photoUrls":"�"},{"photoUrls":"0�\u0006k"},{"photoUrls":"��2�"}]}
+----------End of Body----------
+
+❌ Request was: POST /v2/pet [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 (UNEXPECTED)
+Valid responses: (scenario override, not: 5xx), 405
+Response (non parsed):
+{"code":415,"type":"unknown"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167598750-51745
+Testing: /v2/pet/findByStatus
+--> Url: /v2/pet/findByStatus?status=sold%26available%26pending%26sold%26available%26pending%26sold%26pending
+--> Method: GET
+--> Headers: []
+
+✅ Request was: GET /v2/pet/findByStatus?status=sold%26available%26pending%26sold%26available%26pending%26sold%26pending [Host: petstore.swagger.io, Accept: application/json], Response status code: 200 
+Response (non parsed):
+[]
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167598750-90047
+Testing: /v2/pet/findByTags
+--> Url: /v2/pet/findByTags?tags=u%EF%BF%BDo%26%EF%BF%BD%00%26
+--> Method: GET
+--> Headers: []
+
+✅ Request was: GET /v2/pet/findByTags?tags=u%EF%BF%BDo%26%EF%BF%BD%00%26 [Host: petstore.swagger.io, Accept: application/json], Response status code: 200 
+Response (non parsed):
+[]
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167598750-1151
+Testing: /v2/store/inventory
+--> Url: /v2/store/inventory
+--> Method: GET
+--> Headers: [api_key: ]
+
+✅ Request was: GET /v2/store/inventory [api_key: , Host: petstore.swagger.io, Accept: application/json], Response status code: 200 
+Response (non parsed):
+{"тестировщик":1,"Done":1,"Operated":4,"unavailable":1,"available":4350,"可持续女款":3,"b-ok":2,"sold_1":1,"ckwtcjyk":1,"availiabe":1,"111":2,"Available":4,"avaiable":1,"ee":1,"UniquesStatusForPetTest":1,"Nonavailable":1,"testing":1,"XXXX":1,"dfdf":1,"demented":1,"hhhh":1,"1":6,"present":4,"bcd":1,"string":25592,"99998":1,"WIllBeAvailableSOon":1,"pending":316,"Not-Operated":10,"v.cute":1,"sleeping":3,"pedding":1,"swimming":1,"qazxsw":1,"|ping -c2 -i91 localhost|":2,"Sold":1,"not available":35,"\"pending\"":1,"OK":1,"sold":2146,"$swagger_petstorestatus":4,"b":1,"abc":3,"ddd":1,"avaie":1,"panding":1,"retro":1,"YYYY":1,"fdf":1,"PENDING":2,"tentative":2,"dfff":1,"add Ok":1,"AVAILABLE":3,"qwert":1,"ssss":1,"amet":1,"healthy":1,"InactiveTest":1,"consectetur":1,"Pending":1}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167598750-10705
+Testing: /v2/store/order/{orderId}
+--> Url: /v2/store/order/8
+--> Method: GET
+--> Headers: []
+
+✅ Request was: GET /v2/store/order/8 [Host: petstore.swagger.io, Accept: application/json], Response status code: 404 
+Response (non parsed):
+{"code":1,"type":"error","message":"Order not found"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167598750-22703
+Testing: /v2/store/order/{orderId}
+--> Url: /v2/store/order/3696476038314858365
+--> Method: DELETE
+--> Headers: []
+
+✅ Request was: DELETE /v2/store/order/3696476038314858365 [Host: petstore.swagger.io, Accept: application/json], Response status code: 404 
+Response (non parsed):
+Order not found
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167598750-56788
+Testing: /v2/store/order
+--> Url: /v2/store/order
+--> Method: POST
+--> Headers: []
+--> Body: {}
+----------End of Body----------
+
+❌ Request was: POST /v2/store/order [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 (UNEXPECTED)
+Valid responses: (scenario override, not: 5xx), 400,200
+Response (non parsed):
+{"code":415,"type":"unknown","message":"com.sun.jersey.api.MessageException: A message body reader for Java class io.swagger.sample.model.Order, and Java type class io.swagger.sample.model.Order, and MIME media type text/plain; charset=UTF-8 was not found.\nThe registered message body readers compatible with the MIME media type are:\n*/* ->\n  com.sun.jersey.core.impl.provider.entity.FormProvider\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.XMLJAXBElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n  com.sun.jersey.core.impl.provider.entity.DocumentProvider\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$StreamSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$SAXSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$DOMSourceReader\n  com.sun.jersey.json.impl.provider.entity.JSONJAXBElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONArrayProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONObjectProvider$General\n  com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider\n  com.sun.jersey.core.impl.provider.entity.XMLRootElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLListElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLRootObjectProvider$General\n  com.sun.jersey.core.impl.provider.entity.EntityHolderReader\n  com.sun.jersey.json.impl.provider.entity.JSONRootElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONListElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JacksonProviderProxy\ntext/plain; charset=UTF-8 ->\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167598750-30855
+Testing: /v2/user/{username}
+--> Url: /v2/user/%1cDFEF5=F4Ft_J+;%0b7A888oH,BM
+--> Method: GET
+--> Headers: []
+
+❌ Request was: GET /v2/user/%1cDFEF5=F4Ft_J+;%0b7A888oH,BM [Host: petstore.swagger.io, Accept: application/json], Response status code: 500 (UNEXPECTED)
+Valid responses: (scenario override, not: 5xx), 400,404,200
+Response (non parsed):
+{"code":500,"type":"unknown","message":"something bad happened"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167598750-91970
+Testing: /v2/user/{username}
+--> Url: /v2/user/f7&,D()otTlcF!=k9DnFmd-:BxDa8A!'wxzAb'fPk1ZJvLfWaH(FTr0!KkZGPJR)FT;%e5%CD5.VTJ
+--> Method: PUT
+--> Headers: []
+--> Body: {}
+----------End of Body----------
+
+❌ Request was: PUT /v2/user/f7&,D()otTlcF!=k9DnFmd-:BxDa8A!'wxzAb'fPk1ZJvLfWaH(FTr0!KkZGPJR)FT;%e5%CD5.VTJ [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 (UNEXPECTED)
+Valid responses: (scenario override, not: 5xx), 400,404
+Response (non parsed):
+{"code":415,"type":"unknown","message":"com.sun.jersey.api.MessageException: A message body reader for Java class io.swagger.sample.model.User, and Java type class io.swagger.sample.model.User, and MIME media type text/plain; charset=UTF-8 was not found.\nThe registered message body readers compatible with the MIME media type are:\n*/* ->\n  com.sun.jersey.core.impl.provider.entity.FormProvider\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.XMLJAXBElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n  com.sun.jersey.core.impl.provider.entity.DocumentProvider\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$StreamSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$SAXSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$DOMSourceReader\n  com.sun.jersey.json.impl.provider.entity.JSONJAXBElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONArrayProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONObjectProvider$General\n  com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider\n  com.sun.jersey.core.impl.provider.entity.XMLRootElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLListElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLRootObjectProvider$General\n  com.sun.jersey.core.impl.provider.entity.EntityHolderReader\n  com.sun.jersey.json.impl.provider.entity.JSONRootElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONListElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JacksonProviderProxy\ntext/plain; charset=UTF-8 ->\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167598750-48210
+Testing: /v2/user/{username}
+--> Url: /v2/user/2Lwu*:x@-9%BF9%9Ea6Ff8;tYoW
+--> Method: DELETE
+--> Headers: []
+
+❌ Request was: DELETE /v2/user/2Lwu*:x@-9%BF9%9Ea6Ff8;tYoW [Host: petstore.swagger.io, Accept: application/json], Response status code: 500 (UNEXPECTED)
+Valid responses: (scenario override, not: 5xx), 400,404
+Response (non parsed):
+{"code":500,"type":"unknown","message":"something bad happened"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167598750-45712
+Testing: /v2/user/login
+--> Url: /v2/user/login?password=%7E%EF%BF%BD%EF%BF%BDs2%EF%BF%BDY&username=
+--> Method: GET
+--> Headers: []
+
+✅ Request was: GET /v2/user/login?password=%7E%EF%BF%BD%EF%BF%BDs2%EF%BF%BDY&username= [Host: petstore.swagger.io, Accept: application/json], Response status code: 200 
+Response (non parsed):
+logged in user session:1579167599976
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167598750-99547
+Testing: /v2/user/logout
+--> Url: /v2/user/logout
+--> Method: GET
+--> Headers: []
+
+✅ Request was: GET /v2/user/logout [Host: petstore.swagger.io, Accept: application/json], Response status code: 200 
+Response (parsed):
+empty
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167598750-43682
+Testing: /v2/user
+--> Url: /v2/user
+--> Method: POST
+--> Headers: []
+--> Body: {}
+----------End of Body----------
+
+✅ Request was: POST /v2/user [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 
+Response (non parsed):
+{"code":415,"type":"unknown","message":"com.sun.jersey.api.MessageException: A message body reader for Java class io.swagger.sample.model.User, and Java type class io.swagger.sample.model.User, and MIME media type text/plain; charset=UTF-8 was not found.\nThe registered message body readers compatible with the MIME media type are:\n*/* ->\n  com.sun.jersey.core.impl.provider.entity.FormProvider\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.XMLJAXBElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n  com.sun.jersey.core.impl.provider.entity.DocumentProvider\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$StreamSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$SAXSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$DOMSourceReader\n  com.sun.jersey.json.impl.provider.entity.JSONJAXBElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONArrayProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONObjectProvider$General\n  com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider\n  com.sun.jersey.core.impl.provider.entity.XMLRootElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLListElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLRootObjectProvider$General\n  com.sun.jersey.core.impl.provider.entity.EntityHolderReader\n  com.sun.jersey.json.impl.provider.entity.JSONRootElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONListElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JacksonProviderProxy\ntext/plain; charset=UTF-8 ->\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167598750-53117
+Testing: /v2/user/createWithArray
+--> Url: /v2/user/createWithArray
+--> Method: POST
+--> Headers: []
+--> Body: empty (Entity may not be null)
+
+✅ Request was: POST /v2/user/createWithArray [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 
+Response (non parsed):
+{"code":415,"type":"unknown","message":"com.sun.jersey.api.MessageException: A message body reader for Java class [Lio.swagger.sample.model.User;, and Java type class [Lio.swagger.sample.model.User;, and MIME media type application/octet-stream was not found.\nThe registered message body readers compatible with the MIME media type are:\n*/* ->\n  com.sun.jersey.core.impl.provider.entity.FormProvider\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.XMLJAXBElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n  com.sun.jersey.core.impl.provider.entity.DocumentProvider\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$StreamSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$SAXSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$DOMSourceReader\n  com.sun.jersey.json.impl.provider.entity.JSONJAXBElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONArrayProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONObjectProvider$General\n  com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider\n  com.sun.jersey.core.impl.provider.entity.XMLRootElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLListElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLRootObjectProvider$General\n  com.sun.jersey.core.impl.provider.entity.EntityHolderReader\n  com.sun.jersey.json.impl.provider.entity.JSONRootElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONListElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JacksonProviderProxy\napplication/octet-stream ->\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.RenderedImageProvider\n"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167598750-7447
+Testing: /v2/user/createWithList
+--> Url: /v2/user/createWithList
+--> Method: POST
+--> Headers: []
+--> Body: empty (Entity may not be null)
+
+✅ Request was: POST /v2/user/createWithList [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 
+Response (non parsed):
+{"code":415,"type":"unknown","message":"com.sun.jersey.api.MessageException: A message body reader for Java class java.util.List, and Java type java.util.List<io.swagger.sample.model.User>, and MIME media type application/octet-stream was not found.\nThe registered message body readers compatible with the MIME media type are:\n*/* ->\n  com.sun.jersey.core.impl.provider.entity.FormProvider\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.XMLJAXBElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n  com.sun.jersey.core.impl.provider.entity.DocumentProvider\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$StreamSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$SAXSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$DOMSourceReader\n  com.sun.jersey.json.impl.provider.entity.JSONJAXBElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONArrayProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONObjectProvider$General\n  com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider\n  com.sun.jersey.core.impl.provider.entity.XMLRootElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLListElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLRootObjectProvider$General\n  com.sun.jersey.core.impl.provider.entity.EntityHolderReader\n  com.sun.jersey.json.impl.provider.entity.JSONRootElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONListElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JacksonProviderProxy\napplication/octet-stream ->\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.RenderedImageProvider\n"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167600370-85435
+Testing: Bad Property: /petId (LONG), value: 0.67979187, URL encoded: 0.67979187
+--> Url: /v2/pet/0.67979187
+--> Method: GET
+--> Headers: [api_key: q�>ա��]
+
+✅ Request was: GET /v2/pet/0.67979187 [api_key: q�>ա��, Host: petstore.swagger.io, Accept: application/json], Response status code: 404 
+Response (non parsed):
+{"code":404,"type":"unknown","message":"java.lang.NumberFormatException: For input string: \"0.67979187\""}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167600370-74032
+Testing: Bad Property: /petId (LONG), value: 0.89382344, URL encoded: 0.89382344
+--> Url: /v2/pet/0.89382344
+--> Method: POST
+--> Headers: []
+--> Body: --DBYvNZCHrIX1e6zyPZQIUj_jNIFvdnMYcNQMu
+Content-Disposition: form-data; name="name"
+Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+#_?}Q??
+--DBYvNZCHrIX1e6zyPZQIUj_jNIFvdnMYcNQMu
+Content-Disposition: form-data; name="status"
+Content-Type: application/x-www-form-urlencoded; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+H?
+--DBYvNZCHrIX1e6zyPZQIUj_jNIFvdnMYcNQMu--
+
+----------End of Body----------
+
+❌ Request was: POST /v2/pet/0.89382344 [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 (UNEXPECTED)
+Valid responses: (scenario override, not: 1xx,2xx,5xx), 405
+Response (non parsed):
+{"code":415,"type":"unknown"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167600370-41560
+Testing: Bad Property: /petId (LONG), value: 0.009048104, URL encoded: 0.009048104
+--> Url: /v2/pet/0.009048104
+--> Method: DELETE
+--> Headers: [api_key: ]
+
+✅ Request was: DELETE /v2/pet/0.009048104 [api_key: , Host: petstore.swagger.io, Accept: application/json], Response status code: 404 
+Response (non parsed):
+{"code":404,"type":"unknown","message":"java.lang.NumberFormatException: For input string: \"0.009048104\""}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167600370-67249
+Testing: Bad Property: /petId (LONG), value: 0.9598913, URL encoded: 0.9598913
+--> Url: /v2/pet/0.9598913/uploadImage
+--> Method: POST
+--> Headers: []
+--> Body: --DZTTgfv-UFYVodu44c8eZygA15NaBOx
+Content-Disposition: form-data; name="file"
+Content-Type: multipart/form-data; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+untyped
+--DZTTgfv-UFYVodu44c8eZygA15NaBOx
+Content-Disposition: form-data; name="additionalMetadata"
+Content-Type: multipart/form-data; charset=ISO-8859-1
+Content-Transfer-Encoding: 8bit
+
+
+--DZTTgfv-UFYVodu44c8eZygA15NaBOx--
+
+----------End of Body----------
+
+❌ Request was: POST /v2/pet/0.9598913/uploadImage [Host: petstore.swagger.io, Accept: application/json], Response status code: 404 (UNEXPECTED)
+Valid responses: (scenario override, not: 1xx,2xx,5xx), 200
+Response (non parsed):
+{"code":404,"type":"unknown","message":"java.lang.NumberFormatException: For input string: \"0.9598913\""}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167600370-98834
+Testing: Bad Property: /body/id (LONG), value: 0.44113892, URL encoded: 0.44113892
+--> Url: /v2/pet
+--> Method: PUT
+--> Headers: []
+--> Body: {"name":"w","photoUrls":[{"photoUrls":"���"},{"photoUrls":"\u0012\u001b;M\u0000r�"},{"photoUrls":"w"},{"photoUrls":"�hG\u000f"},{"photoUrls":"\u001b�?�Y�"},{"photoUrls":""},{"photoUrls":"@"},{"photoUrls":"?�k��("},{"photoUrls":""}],"id":0.44113892,"category":{"name":"�O\u001cU","id":4055474781716742205},"tags":[{"name":"","id":-9044636254439209159}],"status":"available"}
+----------End of Body----------
+
+❌ Request was: PUT /v2/pet [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 (UNEXPECTED)
+Valid responses: (scenario override, not: 1xx,2xx,5xx), 400,404,405
+Response (non parsed):
+{"code":415,"type":"unknown"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167600370-45274
+Testing: Bad Property: /body/category/id (LONG), value: 0.4847932, URL encoded: 0.4847932
+--> Url: /v2/pet
+--> Method: PUT
+--> Headers: []
+--> Body: {"name":"w","photoUrls":[{"photoUrls":"���"},{"photoUrls":"\u0012\u001b;M\u0000r�"},{"photoUrls":"w"},{"photoUrls":"�hG\u000f"},{"photoUrls":"\u001b�?�Y�"},{"photoUrls":""},{"photoUrls":"@"},{"photoUrls":"?�k��("},{"photoUrls":""}],"id":1263408107607714664,"category":{"name":"�O\u001cU","id":0.4847932},"tags":[{"name":"","id":-9044636254439209159}],"status":"available"}
+----------End of Body----------
+
+❌ Request was: PUT /v2/pet [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 (UNEXPECTED)
+Valid responses: (scenario override, not: 1xx,2xx,5xx), 400,404,405
+Response (non parsed):
+{"code":415,"type":"unknown"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167600370-33298
+Testing: Bad Property: /body/id (LONG), value: 0.73932827, URL encoded: 0.73932827
+--> Url: /v2/pet
+--> Method: POST
+--> Headers: []
+--> Body: {"name":"��R","photoUrls":[{"photoUrls":""},{"photoUrls":"V_��\b���e�"},{"photoUrls":"Y"},{"photoUrls":"m\\"},{"photoUrls":"7"},{"photoUrls":"3���"}],"id":0.73932827,"category":{"name":"��Rs","id":-4048870575942528019},"tags":[{"name":"�\u0013R\f","id":-914329157705947495},{"name":"�}n\u0001�","id":7287513127864687402}],"status":"pending"}
+----------End of Body----------
+
+❌ Request was: POST /v2/pet [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 (UNEXPECTED)
+Valid responses: (scenario override, not: 1xx,2xx,5xx), 405
+Response (non parsed):
+{"code":415,"type":"unknown"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167600370-76247
+Testing: Bad Property: /body/category/id (LONG), value: 0.9171163, URL encoded: 0.9171163
+--> Url: /v2/pet
+--> Method: POST
+--> Headers: []
+--> Body: {"name":"��R","photoUrls":[{"photoUrls":""},{"photoUrls":"V_��\b���e�"},{"photoUrls":"Y"},{"photoUrls":"m\\"},{"photoUrls":"7"},{"photoUrls":"3���"}],"id":-7931785058153698182,"category":{"name":"��Rs","id":0.9171163},"tags":[{"name":"�\u0013R\f","id":-914329157705947495},{"name":"�}n\u0001�","id":7287513127864687402}],"status":"pending"}
+----------End of Body----------
+
+❌ Request was: POST /v2/pet [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 (UNEXPECTED)
+Valid responses: (scenario override, not: 1xx,2xx,5xx), 405
+Response (non parsed):
+{"code":415,"type":"unknown"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167600370-40028
+Testing: Bad Property: /orderId (LONG), value: 0.7564896, URL encoded: 0.7564896
+--> Url: /v2/store/order/0.7564896
+--> Method: GET
+--> Headers: []
+
+✅ Request was: GET /v2/store/order/0.7564896 [Host: petstore.swagger.io, Accept: application/json], Response status code: 404 
+Response (non parsed):
+{"code":404,"type":"unknown","message":"java.lang.NumberFormatException: For input string: \"0.7564896\""}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167600370-97529
+Testing: Bad Property: /orderId (LONG), value: 0.3509186, URL encoded: 0.3509186
+--> Url: /v2/store/order/0.3509186
+--> Method: DELETE
+--> Headers: []
+
+✅ Request was: DELETE /v2/store/order/0.3509186 [Host: petstore.swagger.io, Accept: application/json], Response status code: 404 
+Response (non parsed):
+{"code":404,"type":"unknown","message":"java.lang.NumberFormatException: For input string: \"0.3509186\""}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167600370-27339
+Testing: Bad Property: /body/petId (LONG), value: 0.8803554, URL encoded: 0.8803554
+--> Url: /v2/store/order
+--> Method: POST
+--> Headers: []
+--> Body: {"petId":0.8803554,"quantity":561122784,"id":-5826967005453963584,"shipDate":"u1�^��","complete":"false","status":"approved"}
+----------End of Body----------
+
+❌ Request was: POST /v2/store/order [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 (UNEXPECTED)
+Valid responses: (scenario override, not: 1xx,2xx,5xx), 400,200
+Response (non parsed):
+{"code":415,"type":"unknown","message":"com.sun.jersey.api.MessageException: A message body reader for Java class io.swagger.sample.model.Order, and Java type class io.swagger.sample.model.Order, and MIME media type text/plain; charset=UTF-8 was not found.\nThe registered message body readers compatible with the MIME media type are:\n*/* ->\n  com.sun.jersey.core.impl.provider.entity.FormProvider\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.XMLJAXBElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n  com.sun.jersey.core.impl.provider.entity.DocumentProvider\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$StreamSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$SAXSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$DOMSourceReader\n  com.sun.jersey.json.impl.provider.entity.JSONJAXBElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONArrayProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONObjectProvider$General\n  com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider\n  com.sun.jersey.core.impl.provider.entity.XMLRootElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLListElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLRootObjectProvider$General\n  com.sun.jersey.core.impl.provider.entity.EntityHolderReader\n  com.sun.jersey.json.impl.provider.entity.JSONRootElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONListElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JacksonProviderProxy\ntext/plain; charset=UTF-8 ->\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167600370-70640
+Testing: Bad Property: /body/quantity (INTEGER), value: 0.69323146, URL encoded: 0.69323146
+--> Url: /v2/store/order
+--> Method: POST
+--> Headers: []
+--> Body: {"petId":-31722555480389238,"quantity":0.69323146,"id":-5826967005453963584,"shipDate":"u1�^��","complete":"false","status":"approved"}
+----------End of Body----------
+
+❌ Request was: POST /v2/store/order [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 (UNEXPECTED)
+Valid responses: (scenario override, not: 1xx,2xx,5xx), 400,200
+Response (non parsed):
+{"code":415,"type":"unknown","message":"com.sun.jersey.api.MessageException: A message body reader for Java class io.swagger.sample.model.Order, and Java type class io.swagger.sample.model.Order, and MIME media type text/plain; charset=UTF-8 was not found.\nThe registered message body readers compatible with the MIME media type are:\n*/* ->\n  com.sun.jersey.core.impl.provider.entity.FormProvider\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.XMLJAXBElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n  com.sun.jersey.core.impl.provider.entity.DocumentProvider\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$StreamSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$SAXSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$DOMSourceReader\n  com.sun.jersey.json.impl.provider.entity.JSONJAXBElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONArrayProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONObjectProvider$General\n  com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider\n  com.sun.jersey.core.impl.provider.entity.XMLRootElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLListElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLRootObjectProvider$General\n  com.sun.jersey.core.impl.provider.entity.EntityHolderReader\n  com.sun.jersey.json.impl.provider.entity.JSONRootElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONListElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JacksonProviderProxy\ntext/plain; charset=UTF-8 ->\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167600370-97859
+Testing: Bad Property: /body/id (LONG), value: 0.25024575, URL encoded: 0.25024575
+--> Url: /v2/store/order
+--> Method: POST
+--> Headers: []
+--> Body: {"petId":-31722555480389238,"quantity":561122784,"id":0.25024575,"shipDate":"u1�^��","complete":"false","status":"approved"}
+----------End of Body----------
+
+❌ Request was: POST /v2/store/order [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 (UNEXPECTED)
+Valid responses: (scenario override, not: 1xx,2xx,5xx), 400,200
+Response (non parsed):
+{"code":415,"type":"unknown","message":"com.sun.jersey.api.MessageException: A message body reader for Java class io.swagger.sample.model.Order, and Java type class io.swagger.sample.model.Order, and MIME media type text/plain; charset=UTF-8 was not found.\nThe registered message body readers compatible with the MIME media type are:\n*/* ->\n  com.sun.jersey.core.impl.provider.entity.FormProvider\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.XMLJAXBElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n  com.sun.jersey.core.impl.provider.entity.DocumentProvider\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$StreamSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$SAXSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$DOMSourceReader\n  com.sun.jersey.json.impl.provider.entity.JSONJAXBElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONArrayProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONObjectProvider$General\n  com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider\n  com.sun.jersey.core.impl.provider.entity.XMLRootElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLListElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLRootObjectProvider$General\n  com.sun.jersey.core.impl.provider.entity.EntityHolderReader\n  com.sun.jersey.json.impl.provider.entity.JSONRootElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONListElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JacksonProviderProxy\ntext/plain; charset=UTF-8 ->\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167600370-39751
+Testing: Bad Property: /body/complete (BOOLEAN), value: ttrue, URL encoded: ttrue
+--> Url: /v2/store/order
+--> Method: POST
+--> Headers: []
+--> Body: {"petId":-31722555480389238,"quantity":561122784,"id":-5826967005453963584,"shipDate":"u1�^��","complete":"ttrue","status":"approved"}
+----------End of Body----------
+
+❌ Request was: POST /v2/store/order [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 (UNEXPECTED)
+Valid responses: (scenario override, not: 1xx,2xx,5xx), 400,200
+Response (non parsed):
+{"code":415,"type":"unknown","message":"com.sun.jersey.api.MessageException: A message body reader for Java class io.swagger.sample.model.Order, and Java type class io.swagger.sample.model.Order, and MIME media type text/plain; charset=UTF-8 was not found.\nThe registered message body readers compatible with the MIME media type are:\n*/* ->\n  com.sun.jersey.core.impl.provider.entity.FormProvider\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.XMLJAXBElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n  com.sun.jersey.core.impl.provider.entity.DocumentProvider\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$StreamSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$SAXSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$DOMSourceReader\n  com.sun.jersey.json.impl.provider.entity.JSONJAXBElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONArrayProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONObjectProvider$General\n  com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider\n  com.sun.jersey.core.impl.provider.entity.XMLRootElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLListElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLRootObjectProvider$General\n  com.sun.jersey.core.impl.provider.entity.EntityHolderReader\n  com.sun.jersey.json.impl.provider.entity.JSONRootElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONListElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JacksonProviderProxy\ntext/plain; charset=UTF-8 ->\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167600370-60930
+Testing: Bad Property: /username (STRING), value: {, URL encoded: %7B
+--> Url: /v2/user/{
+--> Method: GET
+--> Headers: []
+
+✅ Request was: GET /v2/user/{ [Host: petstore.swagger.io, Accept: application/json], Response status code: 400 
+Response (non parsed):
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Error 400 Bad Request</title>
+</head>
+<body><h2>HTTP ERROR 400</h2>
+<p>Problem accessing /v2/user/{. Reason:
+<pre>    Bad Request</pre></p><hr><i><small>Powered by Jetty://</small></i><hr/>
+
+</body>
+</html>
+
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167600370-73464
+Testing: Bad Property: /username (STRING), value: {, URL encoded: %7B
+--> Url: /v2/user/{
+--> Method: PUT
+--> Headers: []
+--> Body: {"firstName":"����\u003cZ����0g","lastName":"2͂Vh��","password":"�","userStatus":2074523029,"phone":"R��W","id":-7067512264635497750,"email":"���S�","username":"�\r"}
+----------End of Body----------
+
+✅ Request was: PUT /v2/user/{ [Host: petstore.swagger.io, Accept: application/json], Response status code: 400 
+Response (parsed):
+empty
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167600370-53441
+Testing: Bad Property: /body/userStatus (INTEGER), value: 0.35628134, URL encoded: 0.35628134
+--> Url: /v2/user/K0_ID,4GHmd;Pustv_$rt6mUs_-;0bLEUb99r8Y(WdD:O&Vz.,%C1B9B2FWf
+--> Method: PUT
+--> Headers: []
+--> Body: {"firstName":"����\u003cZ����0g","lastName":"2͂Vh��","password":"�","userStatus":0.35628134,"phone":"R��W","id":-7067512264635497750,"email":"���S�","username":"�\r"}
+----------End of Body----------
+
+❌ Request was: PUT /v2/user/K0_ID,4GHmd;Pustv_$rt6mUs_-;0bLEUb99r8Y(WdD:O&Vz.,%C1B9B2FWf [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 (UNEXPECTED)
+Valid responses: (scenario override, not: 1xx,2xx,5xx), 400,404
+Response (non parsed):
+{"code":415,"type":"unknown","message":"com.sun.jersey.api.MessageException: A message body reader for Java class io.swagger.sample.model.User, and Java type class io.swagger.sample.model.User, and MIME media type text/plain; charset=UTF-8 was not found.\nThe registered message body readers compatible with the MIME media type are:\n*/* ->\n  com.sun.jersey.core.impl.provider.entity.FormProvider\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.XMLJAXBElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n  com.sun.jersey.core.impl.provider.entity.DocumentProvider\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$StreamSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$SAXSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$DOMSourceReader\n  com.sun.jersey.json.impl.provider.entity.JSONJAXBElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONArrayProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONObjectProvider$General\n  com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider\n  com.sun.jersey.core.impl.provider.entity.XMLRootElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLListElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLRootObjectProvider$General\n  com.sun.jersey.core.impl.provider.entity.EntityHolderReader\n  com.sun.jersey.json.impl.provider.entity.JSONRootElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONListElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JacksonProviderProxy\ntext/plain; charset=UTF-8 ->\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167600370-79383
+Testing: Bad Property: /body/id (LONG), value: 0.30412793, URL encoded: 0.30412793
+--> Url: /v2/user/K0_ID,4GHmd;Pustv_$rt6mUs_-;0bLEUb99r8Y(WdD:O&Vz.,%C1B9B2FWf
+--> Method: PUT
+--> Headers: []
+--> Body: {"firstName":"����\u003cZ����0g","lastName":"2͂Vh��","password":"�","userStatus":2074523029,"phone":"R��W","id":0.30412793,"email":"���S�","username":"�\r"}
+----------End of Body----------
+
+❌ Request was: PUT /v2/user/K0_ID,4GHmd;Pustv_$rt6mUs_-;0bLEUb99r8Y(WdD:O&Vz.,%C1B9B2FWf [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 (UNEXPECTED)
+Valid responses: (scenario override, not: 1xx,2xx,5xx), 400,404
+Response (non parsed):
+{"code":415,"type":"unknown","message":"com.sun.jersey.api.MessageException: A message body reader for Java class io.swagger.sample.model.User, and Java type class io.swagger.sample.model.User, and MIME media type text/plain; charset=UTF-8 was not found.\nThe registered message body readers compatible with the MIME media type are:\n*/* ->\n  com.sun.jersey.core.impl.provider.entity.FormProvider\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.XMLJAXBElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n  com.sun.jersey.core.impl.provider.entity.DocumentProvider\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$StreamSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$SAXSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$DOMSourceReader\n  com.sun.jersey.json.impl.provider.entity.JSONJAXBElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONArrayProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONObjectProvider$General\n  com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider\n  com.sun.jersey.core.impl.provider.entity.XMLRootElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLListElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLRootObjectProvider$General\n  com.sun.jersey.core.impl.provider.entity.EntityHolderReader\n  com.sun.jersey.json.impl.provider.entity.JSONRootElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONListElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JacksonProviderProxy\ntext/plain; charset=UTF-8 ->\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167600370-6015
+Testing: Bad Property: /username (STRING), value: {, URL encoded: %7B
+--> Url: /v2/user/{
+--> Method: DELETE
+--> Headers: []
+
+✅ Request was: DELETE /v2/user/{ [Host: petstore.swagger.io, Accept: application/json], Response status code: 400 
+Response (parsed):
+empty
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167600370-27801
+Testing: Bad Property: /body/userStatus (INTEGER), value: 0.6307462, URL encoded: 0.6307462
+--> Url: /v2/user
+--> Method: POST
+--> Headers: []
+--> Body: {"firstName":"��","lastName":"","password":"�:W","userStatus":0.6307462,"phone":"�","id":-6781992676753440148,"email":"","username":"\u0012["}
+----------End of Body----------
+
+✅ Request was: POST /v2/user [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 
+Response (non parsed):
+{"code":415,"type":"unknown","message":"com.sun.jersey.api.MessageException: A message body reader for Java class io.swagger.sample.model.User, and Java type class io.swagger.sample.model.User, and MIME media type text/plain; charset=UTF-8 was not found.\nThe registered message body readers compatible with the MIME media type are:\n*/* ->\n  com.sun.jersey.core.impl.provider.entity.FormProvider\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.XMLJAXBElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n  com.sun.jersey.core.impl.provider.entity.DocumentProvider\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$StreamSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$SAXSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$DOMSourceReader\n  com.sun.jersey.json.impl.provider.entity.JSONJAXBElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONArrayProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONObjectProvider$General\n  com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider\n  com.sun.jersey.core.impl.provider.entity.XMLRootElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLListElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLRootObjectProvider$General\n  com.sun.jersey.core.impl.provider.entity.EntityHolderReader\n  com.sun.jersey.json.impl.provider.entity.JSONRootElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONListElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JacksonProviderProxy\ntext/plain; charset=UTF-8 ->\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n"}
+
+***** Testing API Endpoint *****
+***** Test ID: 1579167600370-88685
+Testing: Bad Property: /body/id (LONG), value: 0.11645669, URL encoded: 0.11645669
+--> Url: /v2/user
+--> Method: POST
+--> Headers: []
+--> Body: {"firstName":"��","lastName":"","password":"�:W","userStatus":1003664531,"phone":"�","id":0.11645669,"email":"","username":"\u0012["}
+----------End of Body----------
+
+✅ Request was: POST /v2/user [Host: petstore.swagger.io, Accept: application/json], Response status code: 415 
+Response (non parsed):
+{"code":415,"type":"unknown","message":"com.sun.jersey.api.MessageException: A message body reader for Java class io.swagger.sample.model.User, and Java type class io.swagger.sample.model.User, and MIME media type text/plain; charset=UTF-8 was not found.\nThe registered message body readers compatible with the MIME media type are:\n*/* ->\n  com.sun.jersey.core.impl.provider.entity.FormProvider\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ByteArrayProvider\n  com.sun.jersey.core.impl.provider.entity.FileProvider\n  com.sun.jersey.core.impl.provider.entity.InputStreamProvider\n  com.sun.jersey.core.impl.provider.entity.DataSourceProvider\n  com.sun.jersey.core.impl.provider.entity.XMLJAXBElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n  com.sun.jersey.core.impl.provider.entity.DocumentProvider\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$StreamSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$SAXSourceReader\n  com.sun.jersey.core.impl.provider.entity.SourceProvider$DOMSourceReader\n  com.sun.jersey.json.impl.provider.entity.JSONJAXBElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONArrayProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONObjectProvider$General\n  com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider\n  com.sun.jersey.core.impl.provider.entity.XMLRootElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLListElementProvider$General\n  com.sun.jersey.core.impl.provider.entity.XMLRootObjectProvider$General\n  com.sun.jersey.core.impl.provider.entity.EntityHolderReader\n  com.sun.jersey.json.impl.provider.entity.JSONRootElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JSONListElementProvider$General\n  com.sun.jersey.json.impl.provider.entity.JacksonProviderProxy\ntext/plain; charset=UTF-8 ->\n  com.sun.jersey.core.impl.provider.entity.StringProvider\n  com.sun.jersey.core.impl.provider.entity.ReaderProvider\n"}
+
+Tool run results output directory = /root/apps/automatic-api-attack-tool/build/libs/build/testng-results/API Attacks
+
+===============================================
+API Attacks
+Total tests run: 61, Passes: 34, Failures: 27, Skips: 0
+===============================================
+
