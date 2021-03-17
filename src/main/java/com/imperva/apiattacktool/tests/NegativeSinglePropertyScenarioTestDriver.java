@@ -17,6 +17,8 @@ import com.imperva.apispecparser.model.EndpointModel;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class NegativeSinglePropertyScenarioTestDriver extends AbstractTestDriver implements TestDriver {
     private Fuzzer firstStepFuzzer;
@@ -36,7 +38,7 @@ public class NegativeSinglePropertyScenarioTestDriver extends AbstractTestDriver
     }
 
     @Override
-    public List<HttpRequestWrapper> getHttpRequestList(String resourceFileName) {
+    public List<HttpRequestWrapper> getHttpRequestList(String resourceFileName, int numOfRequestsPerParameter) {
         List<EndpointModel> endpointModelList = parseSwagger(resourceFileName);
         if (endpointModelList.isEmpty()) {
             return Collections.emptyList();
@@ -44,7 +46,17 @@ public class NegativeSinglePropertyScenarioTestDriver extends AbstractTestDriver
 
         List<EndpointValuedModel> endpointValuedModelList = getModelToValueConverter().endpointModelToEndpointValuedModel(endpointModelList);
         List<EndpointValuedModel> modelsWithPolicyEnforced = getPolicyEnforcer().enforcePolicyOn(endpointValuedModelList);
+
         List<EndpointValuedModel> fuzzedModelsWithPositiveValues = getBeforeMainEndpointModelProcessor().process(modelsWithPolicyEnforced, firstStepFuzzer);
+        // Generate more data based on the value numOfRequestsPerParameter
+        for (int i = 0; i < numOfRequestsPerParameter - 1; i++) {
+            fuzzedModelsWithPositiveValues = Stream.concat(
+                fuzzedModelsWithPositiveValues.stream(),
+                getMainEndpointModelProcessor().process(modelsWithPolicyEnforced, getFuzzer()).stream())
+                .collect(Collectors.toList()
+                );
+        }
+
         List<EndpointValuedModel> fuzzedEndpointValuedModelList = getMainEndpointModelProcessor().process(fuzzedModelsWithPositiveValues, getFuzzer());
         List<EndpointTestRequestData> endpointTestRequestDataList = getTestRequestDataConverter().processList(fuzzedEndpointValuedModelList);
         List<HttpRequestWrapper> httpRequestWrapperList = getHttpRequestGenerator().generateFrom(endpointTestRequestDataList);

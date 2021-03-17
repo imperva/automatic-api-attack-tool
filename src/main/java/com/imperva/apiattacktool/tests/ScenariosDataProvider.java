@@ -54,7 +54,7 @@ public class ScenariosDataProvider {
     private static Object[][] getEndpointTestRequestData(TestDriver testDriver) {
         List<HttpRequestWrapper> httpRequestWrapperList;
         try {
-            httpRequestWrapperList = testDriver.getHttpRequestList(TestConfiguration.getSpecFilePath());
+            httpRequestWrapperList = testDriver.getHttpRequestList(TestConfiguration.getSpecFilePath(), TestConfiguration.getNumOfRequestsPerParameter());
         } catch (Exception anyException) {
             logger.error("Failed to get httpRequestList, for file: {}", TestConfiguration.getSpecFilePath(), anyException);
             return null;
