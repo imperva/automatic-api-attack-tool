@@ -30,6 +30,9 @@ public class ApiAttackTool implements Callable<Integer> {
     @Option(names = {"-ph", "--proxyHost"}, description = "Specify the proxy host to send the requests via a proxy")
     private String proxyHost;
 
+    @Option(names = {"-rpp", "--requestsPerParameter"}, description = "Specify the number of requests to send per the swagger's parameters (Strings excluded)")
+    private Integer numOfRequestsPerParameter;
+
     @Option(names = {"-pp", "--proxyPort"}, description = "The proxy port")
     private Integer proxyPort;
 
@@ -61,6 +64,10 @@ public class ApiAttackTool implements Callable<Integer> {
 
     public Integer getProxyPort() {
         return proxyPort;
+    }
+
+    public Integer getNumOfRequestsPerParameter() {
+        return numOfRequestsPerParameter;
     }
 
     public List<Integer> getUserProvidedPositiveResponseCodes() {

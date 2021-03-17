@@ -14,6 +14,7 @@ public class TestConfiguration {
 
     private static final int DEFAULT_PROXY_PORT = 80;
     private static final int DEFAULT_HOST_PORT = 443;
+    private static final int DEFAULT_NUM_OF_REQUESTS_PER_PARAMETER = 1;
 
     private static String specFilePath = System.getProperty("specFile", null);
 
@@ -27,6 +28,8 @@ public class TestConfiguration {
 
     private static Integer proxyPort = getIntegerFieldFromProperty("proxyPort", DEFAULT_PROXY_PORT);
 
+    private static Integer numOfRequestsPerParameter = getIntegerFieldFromProperty("numOfRequestsPerParameter", DEFAULT_NUM_OF_REQUESTS_PER_PARAMETER);
+
     private static Collection<Integer> userProvidedPositiveResponseCodes = getIntegerListFromProperty("addPositiveRC", Collections.emptyList());
 
     private static Collection<Integer> userProvidedNegativeResponseCodes = getIntegerListFromProperty("addNegativeRC", Collections.emptyList());
@@ -38,6 +41,7 @@ public class TestConfiguration {
         hostPort = apiAttackToolOptions.getHostPort();
         proxyHost = apiAttackToolOptions.getProxyHost();
         proxyPort = apiAttackToolOptions.getProxyPort();
+        numOfRequestsPerParameter = apiAttackToolOptions.getNumOfRequestsPerParameter();
         userProvidedPositiveResponseCodes =
             apiAttackToolOptions.getUserProvidedPositiveResponseCodes() == null
                 ? Collections.emptyList()
@@ -50,6 +54,10 @@ public class TestConfiguration {
 
     public static String getSpecFilePath() {
         return specFilePath;
+    }
+
+    public static int getNumOfRequestsPerParameter() {
+        return numOfRequestsPerParameter == null ? DEFAULT_NUM_OF_REQUESTS_PER_PARAMETER : numOfRequestsPerParameter;
     }
 
     public static String getHostScheme() {
@@ -86,8 +94,8 @@ public class TestConfiguration {
 
     public static String getWorkingConfigurationString() {
         return "API Spec file path: " + specFilePath + "\n"
-        + "Host: (" + hostScheme + ") " + hostName + " : " + getHostPort() + "\n"
-        + (isProxyDefined()
+            + "Host: (" + hostScheme + ") " + hostName + " : " + getHostPort() + "\n"
+            + (isProxyDefined()
             ? "Proxy Host: " + proxyHost + " : " + getProxyPort() + "\n"
             : "");
 

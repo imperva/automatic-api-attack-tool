@@ -16,6 +16,8 @@ import com.imperva.apispecparser.model.EndpointModel;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class SingleValueScenarioTestDriver extends AbstractTestDriver implements TestDriver {
 
@@ -32,7 +34,7 @@ public class SingleValueScenarioTestDriver extends AbstractTestDriver implements
     }
 
     @Override
-    public List<HttpRequestWrapper> getHttpRequestList(String resourceFileName) {
+    public List<HttpRequestWrapper> getHttpRequestList(String resourceFileName, int numOfRequestsPerParameter) {
         List<EndpointModel> endpointModelList = parseSwagger(resourceFileName);
         if (endpointModelList.isEmpty()) {
             return Collections.emptyList();
@@ -40,7 +42,17 @@ public class SingleValueScenarioTestDriver extends AbstractTestDriver implements
 
         List<EndpointValuedModel> endpointValuedModelList = getModelToValueConverter().endpointModelToEndpointValuedModel(endpointModelList);
         List<EndpointValuedModel> modelsWithPolicyEnforced = getPolicyEnforcer().enforcePolicyOn(endpointValuedModelList);
+
         List<EndpointValuedModel> fuzzedEndpointValuedModelList = getMainEndpointModelProcessor().process(modelsWithPolicyEnforced, getFuzzer());
+        // Generate more data based on the value numOfRequestsPerParameter
+        for (int i = 0; i < numOfRequestsPerParameter - 1; i++) {
+            fuzzedEndpointValuedModelList = Stream.concat(
+                fuzzedEndpointValuedModelList.stream(),
+                getMainEndpointModelProcessor().process(modelsWithPolicyEnforced, getFuzzer()).stream())
+                .collect(Collectors.toList()
+                );
+        }
+
         List<EndpointTestRequestData> endpointTestRequestDataList = getTestRequestDataConverter().processList(fuzzedEndpointValuedModelList);
         List<HttpRequestWrapper> httpRequestWrapperList = getHttpRequestGenerator().generateFrom(endpointTestRequestDataList);
         return httpRequestWrapperList;
