@@ -81,7 +81,7 @@ public class MainTest {
         try {
             httpResponse = httpClient.execute(httpHost, httpRequest);
         } catch (Exception anyException) {
-            TestReporter.log("❌ Error connecting to target! " + anyException.getMessage());
+            TestReporter.log("Error connecting to target! " + anyException.getMessage());
             TestReporter.log("");
             Assert.fail(anyException.getMessage());
             return;
@@ -89,7 +89,7 @@ public class MainTest {
 
         int statusCode = httpResponse.getStatusLine().getStatusCode();
         boolean isStatusCodeValid = httpResponseValidator.isValidHttpCode(statusCode);
-        TestReporter.log((isStatusCodeValid? "✅ " : "❌ ") +"Request was: " + httpRequest.toString() + ", Response status code: " + statusCode + (isStatusCodeValid? " " : " (UNEXPECTED)"));
+        TestReporter.log((isStatusCodeValid? "ok " : "not ok ") +"Request was: " + httpRequest.toString() + ", Response status code: " + statusCode + (isStatusCodeValid? " " : " (UNEXPECTED)"));
         if (!isStatusCodeValid) {
             TestReporter.log(httpResponseValidator.toString());
         }

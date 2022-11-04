@@ -45,7 +45,11 @@ public class ArrayPropertyValue extends ArrayProperty implements PropertyValue<L
     @Override
     public Map<String, Object> bodyParameterJsonRepresentationMap() {
         HashMap<String, Object> representationMap = new HashMap<>(1);
+        if(value == null) {
+            return representationMap;
+        }
         representationMap.put(this.getName(), value.stream().map(PropertyValueNode::bodyParameterJsonRepresentationMap).collect(Collectors.toList()));
+
         return representationMap;
     }
 

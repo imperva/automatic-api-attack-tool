@@ -21,10 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.URISyntaxException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -74,6 +71,12 @@ public class TestHttpRequestGenerator implements HttpRequestGenerator {
             if (endpointTestRequestData.hasHeaderParameters()) {
                 updateRequestWithRequestHeaders(httpRequest, endpointTestRequestData.getHeaderParameters());
             }
+            if ((httpRequest.getHeaders("content-type") == null
+                    || Arrays.stream(httpRequest.getHeaders("content-type")).count() == 0 )
+                    && !endpointTestRequestData.getConsumesMimeTypes().isEmpty()){
+                httpRequest.addHeader("content-type", endpointTestRequestData.getConsumesMimeTypes().get(0));
+            }
+            //httpRequest.addHeader("content-type", "application/json");
         } catch (URISyntaxException uriSyntaxException) {
             logger.error("Couldn't generate http request for {}", endpointTestRequestData, uriSyntaxException);
             return null;
